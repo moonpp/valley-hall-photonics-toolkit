@@ -130,6 +130,10 @@ class ReplayTests(unittest.TestCase):
         for path in DATA.glob('*.json'):
             json.loads(path.read_text(encoding='utf-8'), parse_constant=reject)
 
+    def test_example_bytes_use_canonical_newlines(self):
+        for path in DATA.glob('*.json'):
+            self.assertNotIn(b'\r', path.read_bytes(), str(path))
+
     def test_cli(self):
         run = subprocess.run([sys.executable,'-m','valleyhall','replay',str(DATA)],
                              cwd=ROOT, capture_output=True, text=True)
