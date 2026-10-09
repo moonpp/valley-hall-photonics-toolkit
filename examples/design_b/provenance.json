@@ -1,0 +1,64 @@
+{
+  "source_package": "Claude r9 SS-wall package, 2026-09-30; relocated submission-preparation subset, 2026-10-06",
+  "source_sha256": {
+    "modes_and_overlaps.json": "74ae3ff132bd903f8950117cc6ceea3a88a7f99ee4cd7d9c5e6c61d54843d332",
+    "geometry.json": "7f7ae9394f531de1e5058690dca308b325031457a9c08aa3352b677abab5d28b",
+    "sampling.json": "61f05e4e7cde07c253cdf192c18e69f33e8e242b39b5390b86fb553518c1573a"
+  },
+  "extraction": "modes.json keeps every archived candidate and only eigen_index, f, f_im, te, W_max, wall, phase and gap edges. No rounding, interpolation, new solve or physical validation. Unused non-finite xi entries are omitted. geometry.json retains the five named source sections unchanged.",
+  "source_gap_label": "first two entries of the archived bulk_K_gme3",
+  "sampling": {
+    "rule": "s = i/8, i = 0..7 (the eight-phase grid of the main text)",
+    "s": [
+      0.0,
+      0.125,
+      0.25,
+      0.375,
+      0.5,
+      0.625,
+      0.75,
+      0.875
+    ],
+    "ky_over_2pi_a": [
+      0.0,
+      0.002255274489021976,
+      0.004510548978043952,
+      0.006765823467065927,
+      0.009021097956087904,
+      0.01127637244510988,
+      0.013531646934131855,
+      0.01578692142315383
+    ],
+    "ky_rad_per_a": [
+      0.0,
+      0.014170307533079827,
+      0.028340615066159654,
+      0.042510922599239484,
+      0.05668123013231931,
+      0.07085153766539913,
+      0.08502184519847897,
+      0.09919215273155879
+    ]
+  },
+  "solver_settings": {
+    "gmax": 3.0,
+    "gmode_inds": [
+      0,
+      1
+    ],
+    "numeig": 16,
+    "compute_im": true,
+    "eig_solver": "eigsh",
+    "eig_sigma": 0.4525805162034621,
+    "verbose": false
+  },
+  "selection": "At each phase and wall: strict gap inclusion, TE >= 0.6, W_max >= 0.6; choose largest W_max. Require all eight phases.",
+  "averaging": "Q_sc = mean(f)/(2*mean(f_im)); not mean(Q_phase).",
+  "frequency_convention": "f=a/lambda_0; Legume uses exp(+i omega t), f_im positive for temporal decay.",
+  "targets": {
+    "SS": 689.6353541677968,
+    "LL": 419.08209346998086
+  },
+  "validation_scope": "Independent recomputation of archived scalar selection/averaging only; no independent Maxwell solve, field identity check or validation of radiative Q.",
+  "ai_assistance": "Source calculations and archive prepared with Claude; extraction, replay implementation and tests prepared with Codex under Nouh Al Busaidi. Human scientific review remains pending."
+}
